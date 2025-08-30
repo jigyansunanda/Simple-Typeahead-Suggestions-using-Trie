@@ -41,3 +41,21 @@ func (trie *Trie) SearchWord(word string) bool {
 	}
 	return currentNode.IsEndOfWord
 }
+
+func (trie *Trie) SearchPrefix(word string) bool {
+	currentNode := trie.Root
+	for _, char := range word {
+		// Convert rune to string
+		str := string(char)
+		// Check if node exists or not
+		childNode, isExist := currentNode.Child[str]
+		if !isExist {
+			return false
+		}
+		currentNode = childNode
+	}
+	if currentNode.IsEndOfWord {
+		currentNode.Frequency += 1
+	}
+	return true
+}
