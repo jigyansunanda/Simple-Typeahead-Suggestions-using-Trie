@@ -2,6 +2,7 @@ package services
 
 import (
 	"container/heap"
+	"fmt"
 
 	"github.com/jigyansunanda/Simple-Typeahead-Suggestions-using-Trie/structures"
 )
@@ -25,8 +26,29 @@ func (dictionary *Dictionary) InsertWordIntoDictionary(word string) {
 	dictionary.trie.InsertWord(word)
 }
 
-func (dictionary *Dictionary) SearchPrefixInDictionary(word string) bool {
+func (dictionary *Dictionary) searchPrefixInDictionary(word string) bool {
 	return dictionary.trie.SearchPrefix(word)
+}
+
+func (dictionary *Dictionary) AutoComplete(prefix string) {
+	isPrefixPresent := dictionary.searchPrefixInDictionary(prefix)
+	if !isPrefixPresent {
+		fmt.Println(prefix)
+		fmt.Println("No extra suggestions for the word being searched first time !")
+	} else {
+		myHeap := &structures.MyHeap{}
+		heap.Init(myHeap)
+		dictionary.getSuggestions(prefix, myHeap)
+		if !myHeap.IsEmpty() {
+			fmt.Printf("Top %d suggestions:\n", myHeap.Len())
+			for myHeap.Len() > 0 {
+				suggestion := heap.Pop(myHeap).(*structures.FrequencyPair).Word
+				fmt.Println(suggestion)
+			}
+		} else {
+			fmt.Println(prefix)
+		}
+	}
 }
 
 func (dictionary *Dictionary) getSuggestions(prefix string, myHeap *structures.MyHeap) {
