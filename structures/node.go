@@ -1,7 +1,7 @@
 package structures
 
 type Node struct {
-	Child       map[string]Node
+	Child       map[string]*Node
 	Frequency   int32
 	IsEndOfWord bool
 }
