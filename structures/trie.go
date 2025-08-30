@@ -26,3 +26,18 @@ func (trie *Trie) InsertWord(word string) {
 	currentNode.IsEndOfWord = true
 	currentNode.Frequency += 1
 }
+
+func (trie *Trie) SearchWord(word string) bool {
+	currentNode := trie.Root
+	for _, char := range word {
+		// Convert rune to string
+		str := string(char)
+		// Check if node exists or not
+		childNode, isExist := currentNode.Child[str]
+		if !isExist {
+			return false
+		}
+		currentNode = childNode
+	}
+	return currentNode.IsEndOfWord
+}
