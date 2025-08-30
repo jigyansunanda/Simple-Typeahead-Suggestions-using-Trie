@@ -20,3 +20,11 @@ func (pq *MyHeap) Push(x any) {
 	frequencyPair.index = len(*pq)
 	*pq = append(*pq, frequencyPair)
 }
+
+func (pq *MyHeap) Pop() any {
+	temp, n := *pq, len(*pq)
+	lastItem := temp[n-1]
+	temp[n-1] = nil
+	*pq = temp[0 : n-1]
+	return lastItem
+}
