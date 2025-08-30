@@ -36,3 +36,10 @@ func (pq *MyHeap) Pop() any {
 	*pq = temp[0 : n-1]
 	return lastItem
 }
+
+func (pq MyHeap) Peek() any {
+	if pq.Len() == 0 {
+		return nil
+	}
+	return *pq[0]
+}
