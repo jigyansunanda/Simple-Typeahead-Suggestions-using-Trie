@@ -15,3 +15,11 @@ func NewDictionary() Dictionary {
 
 	return *dictionary
 }
+
+func (dictionary *Dictionary) InsertWordIntoDictionary(word string) {
+	dictionary.trie.InsertWord(word)
+}
+
+func (dictionary *Dictionary) SearchPrefixInDictionary(word string) bool {
+	return dictionary.trie.SearchPrefix(word)
+}
