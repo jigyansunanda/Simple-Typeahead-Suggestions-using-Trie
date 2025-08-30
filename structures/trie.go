@@ -18,12 +18,16 @@ func (trie *Trie) InsertWord(word string) {
 		// Check if node exists or not
 		childNode, isExist := currentNode.Child[str]
 		if !isExist {
+			// Create new node if does not exist
 			currentNode.Child[str] = NewNode()
+			// Assign the new created node to childnode
 			childNode = currentNode.Child[str]
 		}
 		currentNode = childNode
 	}
+	// Mark end of word
 	currentNode.IsEndOfWord = true
+	// Increase word frequency
 	currentNode.Frequency += 1
 }
 
@@ -39,6 +43,8 @@ func (trie *Trie) SearchWord(word string) bool {
 		}
 		currentNode = childNode
 	}
+	// To make sure it's not just a prefix
+	// but truly an end of the word
 	return currentNode.IsEndOfWord
 }
 
@@ -54,6 +60,7 @@ func (trie *Trie) SearchPrefix(word string) bool {
 		}
 		currentNode = childNode
 	}
+	// If complete word has been searched, increase frequency
 	if currentNode.IsEndOfWord {
 		currentNode.Frequency += 1
 	}
