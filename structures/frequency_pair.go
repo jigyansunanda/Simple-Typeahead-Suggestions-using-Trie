@@ -43,3 +43,7 @@ func (pq MyHeap) Peek() any {
 	}
 	return *pq[0]
 }
+
+func (pq MyHeap) IsEmpty() bool {
+	return len(pq) == 0
+}
