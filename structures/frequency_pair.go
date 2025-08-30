@@ -14,3 +14,9 @@ func (pq MyHeap) Swap(i, j int) {
 	pq[i], pq[j] = pq[j], pq[i]
 	pq[i].index, pq[j].index = i, j
 }
+
+func (pq *MyHeap) Push(x any) {
+	frequencyPair := x.(*FrequencyPair)
+	frequencyPair.index = len(*pq)
+	*pq = append(*pq, frequencyPair)
+}
